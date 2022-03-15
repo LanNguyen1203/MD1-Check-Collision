@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Rectangle.js"></script>
+    <script src="Circle.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1300" height="600" style="border: 2px solid green"></canvas>
+</body>
+</html>
+<script>
+    let canvas = document.getElementById('myCanvas');
+    let ctx = canvas.getContext('2d');
+    let rectangle1 = new Rectangle(500, 100, 100, 50, 'red')
+    let circle = new Circle(100, 100, 50, 'green')
+
+    function moveRect() {
+        switch (event.keyCode) {
+            case 37:
+                rectangle1.moveLeft();
+                break;
+            case 38:
+                rectangle1.moveUp();
+                break;
+            case 39:
+                rectangle1.moveRight();
+                break;
+            case 40:
+                rectangle1.moveDown();
+                break;
+        }
+        actionCollisiion();
+        clearCanvas();
+        drawCanvas();
+    }
+
+    //HAM CHECK VA CHAM
+    function checkCollision() {
+        if ((rectangle1.x + rectangle1.width > circle.x - circle.radius) && (rectangle1.x < circle.x + circle.radius) && (rectangle1.y + rectangle1.height > circle.y - circle.radius && rectangle1.y < circle.y + circle.radius)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function actionCollisiion() {
+        if (checkCollision()){
+            alert('CO VA CHAM')
+        }
+
+    }
+
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+
+    function drawCanvas() {
+        rectangle1.drawRectangle(ctx);
+        circle.drawCircle(ctx);
+    }
+
+    addEventListener('keyup', moveRect)
+</script>
